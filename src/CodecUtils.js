@@ -285,7 +285,7 @@ class CodecUtils {
   * @param {TypedArray} typedArray - one of the typed array
   * @return {Object} in form of {type: String, signed: Boolean, bytesPerElements: Number, byteLength: Number, length: Number}
   */
-  getTypedArrayInfo( typedArray ){
+  static getTypedArrayInfo( typedArray ){
     var type = null;
     var signed = false;
 
