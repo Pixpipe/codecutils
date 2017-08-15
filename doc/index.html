@@ -1,0 +1,632 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>  | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro:400,500,700' rel='stylesheet' type='text/css'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation'>
+  <div class='container'>
+    <div class='clearfix md-mxn2'>
+      <div class='fixed md-show fix-3 overflow-auto max-height-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'></h3>
+          <div class='mb1'><code></code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block field'
+            type='text' />
+          <div id='toc'>
+              <a
+                href='#CodecUtils'
+                class='block bold'>
+                CodecUtils
+              </a>
+                <a
+                  href='#CodecUtils.ArrayBufferToObject'
+                  class='regular block'>
+                  .ArrayBufferToObject
+                </a>
+                <a
+                  href='#CodecUtils.arrayBufferToString16'
+                  class='regular block'>
+                  .arrayBufferToString16
+                </a>
+                <a
+                  href='#CodecUtils.arrayBufferToString8'
+                  class='regular block'>
+                  .arrayBufferToString8
+                </a>
+                <a
+                  href='#CodecUtils.extractTypedArray'
+                  class='regular block'>
+                  .extractTypedArray
+                </a>
+                <a
+                  href='#CodecUtils.getGlobalObject'
+                  class='regular block'>
+                  .getGlobalObject
+                </a>
+                <a
+                  href='#CodecUtils.getString8FromBuffer'
+                  class='regular block'>
+                  .getString8FromBuffer
+                </a>
+                <a
+                  href='#CodecUtils.isPlatformLittleEndian'
+                  class='regular block'>
+                  .isPlatformLittleEndian
+                </a>
+                <a
+                  href='#CodecUtils.isTypedArray'
+                  class='regular block'>
+                  .isTypedArray
+                </a>
+                <a
+                  href='#CodecUtils.mergeBuffers'
+                  class='regular block'>
+                  .mergeBuffers
+                </a>
+                <a
+                  href='#CodecUtils.objectToArrayBuffer'
+                  class='regular block'>
+                  .objectToArrayBuffer
+                </a>
+                <a
+                  href='#CodecUtils.setString8InBuffer'
+                  class='regular block'>
+                  .setString8InBuffer
+                </a>
+                <a
+                  href='#CodecUtils.string16ToArrayBuffer'
+                  class='regular block'>
+                  .string16ToArrayBuffer
+                </a>
+                <a
+                  href='#CodecUtils.string8ToArrayBuffer'
+                  class='regular block'>
+                  .string8ToArrayBuffer
+                </a>
+          </div>
+        </div>
+      </div>
+      <div class='fix-margin-3'>
+        <div class='px2'>
+<div class='py1'><section class='py2 clearfix'>
+  <h2 id='CodecUtils' class='mt0'>
+    CodecUtils<span class='gray'></span>
+  </h2>
+  <p>The CodecUtils class gather some static methods that can be useful while
+encodeing/decoding data.
+CodecUtils does not have a constructor, don&apos;t try to instanciate it.</p>
+
+      <h4>Static members</h4>
+        <div class='collapsible' id='CodecUtils.ArrayBufferToObject'>
+          <a href='#CodecUtils.ArrayBufferToObject'>
+            <code>
+              .ArrayBufferToObject<span class='gray'>(buff)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Convert an ArrayBuffer into a JS Object. This uses an intermediate unicode JSON string.
+Of course, this buffer has to come from a serialized object.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.ArrayBufferToObject' class='mt0'>
+                ArrayBufferToObject<span class='gray'>(buff)</span>
+              </h2>
+              <p>Convert an ArrayBuffer into a JS Object. This uses an intermediate unicode JSON string.
+            Of course, this buffer has to come from a serialized object.</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code> <strong>buff</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>the ArrayBuffer that hides some object</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the deserialized object</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.arrayBufferToString16'>
+          <a href='#CodecUtils.arrayBufferToString16'>
+            <code>
+              .arrayBufferToString16<span class='gray'>(buf)</span>
+            </code>
+            <div class='force-inline'>
+              <p>convert an ArrayBuffer into a unicode string (2 bytes for each char)</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.arrayBufferToString16' class='mt0'>
+                arrayBufferToString16<span class='gray'>(buf)</span>
+              </h2>
+              <p>convert an ArrayBuffer into a unicode string (2 bytes for each char)</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code> <strong>buf</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>input ArrayBuffer</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>a string compatible with Unicode characters</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.arrayBufferToString8'>
+          <a href='#CodecUtils.arrayBufferToString8'>
+            <code>
+              .arrayBufferToString8<span class='gray'>(buf)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Convert an ArrayBuffer into a ASCII string (1 byte for each char)</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.arrayBufferToString8' class='mt0'>
+                arrayBufferToString8<span class='gray'>(buf)</span>
+              </h2>
+              <p>Convert an ArrayBuffer into a ASCII string (1 byte for each char)</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code> <strong>buf</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>buffer to convert into ASCII string</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the output string</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.extractTypedArray'>
+          <a href='#CodecUtils.extractTypedArray'>
+            <code>
+              .extractTypedArray<span class='gray'>(buffer, byteOffset, arrayType, numberOfElements)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Extract a typed array from an arbitrary buffer, with an arbitrary offset</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.extractTypedArray' class='mt0'>
+                extractTypedArray<span class='gray'>(buffer, byteOffset, arrayType, numberOfElements)</span>
+              </h2>
+              <p>Extract a typed array from an arbitrary buffer, with an arbitrary offset</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code> <strong>buffer</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>the buffer from which we extract data</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>byteOffset</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>offset from the begining of buffer</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">Function</a></code> <strong>arrayType</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>function object, actually the constructor of the output array</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>numberOfElements</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>nb of elem we want to fetch from the buffer</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray">TypedArray</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>output of type given by arg arrayType - this is a copy, not a view</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.getGlobalObject'>
+          <a href='#CodecUtils.getGlobalObject'>
+            <code>
+              .getGlobalObject<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>In a browser, the global object is <code>window</code> while in Node, it&apos;s <code>GLOBAL</code>.
+This method return the one that is relevant to the execution context.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.getGlobalObject' class='mt0'>
+                getGlobalObject<span class='gray'></span>
+              </h2>
+              <p>In a browser, the global object is <code>window</code> while in Node, it&apos;s <code>GLOBAL</code>.
+            This method return the one that is relevant to the execution context.</p>
+            
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the global object</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.getString8FromBuffer'>
+          <a href='#CodecUtils.getString8FromBuffer'>
+            <code>
+              .getString8FromBuffer<span class='gray'>(buffer, strLength, byteOffset)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Extract an ASCII string from an ArrayBuffer</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.getString8FromBuffer' class='mt0'>
+                getString8FromBuffer<span class='gray'>(buffer, strLength, byteOffset)</span>
+              </h2>
+              <p>Extract an ASCII string from an ArrayBuffer</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code> <strong>buffer</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>the buffer</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>strLength</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>number of chars in the string we want</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>byteOffset</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>the offset in number of bytes</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the string, or null in case of error</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.isPlatformLittleEndian'>
+          <a href='#CodecUtils.isPlatformLittleEndian'>
+            <code>
+              .isPlatformLittleEndian<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>Get whether or not the platform is using little endian.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.isPlatformLittleEndian' class='mt0'>
+                isPlatformLittleEndian<span class='gray'></span>
+              </h2>
+              <p>Get whether or not the platform is using little endian.</p>
+            
+                  <h4>Returns</h4>
+                  <code><code>Boolen</code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>true if the platform is little endian, false if big endian</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.isTypedArray'>
+          <a href='#CodecUtils.isTypedArray'>
+            <code>
+              .isTypedArray<span class='gray'>(obj)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Get if wether of not the arg is a typed array</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.isTypedArray' class='mt0'>
+                isTypedArray<span class='gray'>(obj)</span>
+              </h2>
+              <p>Get if wether of not the arg is a typed array</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code> <strong>obj</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>possibly a typed array, or maybe not</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>true if obj is a typed array</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.mergeBuffers'>
+          <a href='#CodecUtils.mergeBuffers'>
+            <code>
+              .mergeBuffers<span class='gray'>(arrayOfBuffers)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Merge some ArrayBuffes in a single one</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.mergeBuffers' class='mt0'>
+                mergeBuffers<span class='gray'>(arrayOfBuffers)</span>
+              </h2>
+              <p>Merge some ArrayBuffes in a single one</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>arrayOfBuffers</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>some ArrayBuffers</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the larger merged buffer</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.objectToArrayBuffer'>
+          <a href='#CodecUtils.objectToArrayBuffer'>
+            <code>
+              .objectToArrayBuffer<span class='gray'>(obj)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Serializes a JS object into an ArrayBuffer.
+This is using a unicode JSON intermediate step.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.objectToArrayBuffer' class='mt0'>
+                objectToArrayBuffer<span class='gray'>(obj)</span>
+              </h2>
+              <p>Serializes a JS object into an ArrayBuffer.
+            This is using a unicode JSON intermediate step.</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code> <strong>obj</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>an object that does not have cyclic structure</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the serialized output</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.setString8InBuffer'>
+          <a href='#CodecUtils.setString8InBuffer'>
+            <code>
+              .setString8InBuffer<span class='gray'>(str, buffer, byteOffset)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Write a ASCII string into a buffer</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.setString8InBuffer' class='mt0'>
+                setString8InBuffer<span class='gray'>(str, buffer, byteOffset)</span>
+              </h2>
+              <p>Write a ASCII string into a buffer</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>str</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>a string that contains only ASCII characters</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code> <strong>buffer</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>the buffer where to write the string</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>byteOffset</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>the offset to apply, in number of bytes</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.string16ToArrayBuffer'>
+          <a href='#CodecUtils.string16ToArrayBuffer'>
+            <code>
+              .string16ToArrayBuffer<span class='gray'>(str)</span>
+            </code>
+            <div class='force-inline'>
+              <p>convert a unicode string into an ArrayBuffer
+Note that the str is a regular string but it will be encoded with
+2 bytes per char instead of 1 ( ASCII uses 1 byte/char )</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.string16ToArrayBuffer' class='mt0'>
+                string16ToArrayBuffer<span class='gray'>(str)</span>
+              </h2>
+              <p>convert a unicode string into an ArrayBuffer
+            Note that the str is a regular string but it will be encoded with
+            2 bytes per char instead of 1 ( ASCII uses 1 byte/char )</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>str</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>string to encode</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the output ArrayBuffer</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.string8ToArrayBuffer'>
+          <a href='#CodecUtils.string8ToArrayBuffer'>
+            <code>
+              .string8ToArrayBuffer<span class='gray'>(str)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Convert a ASCII string into an ArrayBuffer.
+Note that the str is a regular string, it will be encoded with 1 byte per char</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.string8ToArrayBuffer' class='mt0'>
+                string8ToArrayBuffer<span class='gray'>(str)</span>
+              </h2>
+              <p>Convert a ASCII string into an ArrayBuffer.
+            Note that the str is a regular string, it will be encoded with 1 byte per char</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>str</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>string to encode</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code></code>
+                  
+                  <div class='force-inline'>
+                    
+                  </div>
+            </section>
+          </div>
+        </div>
+</section>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

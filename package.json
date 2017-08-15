@@ -1,0 +1,26 @@
+{
+  "name": "codecutils",
+  "version": "0.1.0",
+  "description": "Some handy tools for file codec",
+  "main": "src/CodecUtils.js",
+  "repository": "jonathanlurie/codecutils",
+  "moduleName": "codecutils",
+  "moduleFormat": "umd",
+  "moduleBuildDir": "dist",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "build-min": "npm run build && printf \"// Build date: $(date '+%Y-%m%-dT%H:%M:%S')\n\n\" > dist/codecutils.min.js && cat header.txt >> dist/codecutils.min.js && google-closure-compiler-js dist/codecutils.js >> dist/codecutils.min.js",
+    "doc": "documentation src/CodecUtils.js -o ./doc/ -f html"
+  },
+  "author": "Jonathan Lurie",
+  "license": "MIT",
+  "devDependencies": {
+    "documentation": "^3.0.4",
+    "google-closure-compiler-js": "^20170218.0.0",
+    "rollup": "^0.36.4",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^2.0.0"
+  },
+  "dependencies": {}
+}
