@@ -69,7 +69,7 @@ class CodecUtils {
     return buf;
   }
 
-  
+
   /**
   * Write a ASCII string into a buffer
   * @param {String} str - a string that contains only ASCII characters
@@ -81,19 +81,19 @@ class CodecUtils {
       console.warn("The byte offset cannot be negative.");
       return;
     }
-    
+
     if( !buffer || !(buffer instanceof ArrayBuffer)){
       console.warn("The buffer must be a valid ArrayBuffer.");
       return;
     }
-    
+
     if( (str.length + byteOffset) > buffer.byteLength ){
       console.warn("The string is too long to be writen in this buffer.");
       return;
     }
-    
+
     var bufView = new Uint8Array(buffer);
-    
+
     for (var i=0; i < str.length; i++) {
       bufView[i + byteOffset] = str.charCodeAt(i);
     }
@@ -112,21 +112,21 @@ class CodecUtils {
       console.warn("The byte offset cannot be negative.");
       return null;
     }
-    
+
     if( !buffer || !(buffer instanceof ArrayBuffer)){
       console.warn("The buffer must be a valid ArrayBuffer.");
       return null;
     }
-    
+
     if( (strLength + byteOffset) > buffer.byteLength ){
       console.warn("The string is too long to be writen in this buffer.");
       return null;
     }
-    
+
     return String.fromCharCode.apply(null, new Uint8Array(buffer, byteOffset, strLength));
   }
 
-  
+
   /**
   * Serializes a JS object into an ArrayBuffer.
   * This is using a unicode JSON intermediate step.
@@ -135,18 +135,18 @@ class CodecUtils {
   */
   static objectToArrayBuffer( obj ){
     var buff = null;
-    
+
     try{
       var strObj = JSON.stringify( obj );
       buff = CodecUtils.string16ToArrayBuffer(strObj)
     }catch(e){
       console.warn(e);
     }
-    
+
     return buff;
   }
-  
-  
+
+
   /**
   * Convert an ArrayBuffer into a JS Object. This uses an intermediate unicode JSON string.
   * Of course, this buffer has to come from a serialized object.
@@ -155,18 +155,18 @@ class CodecUtils {
   */
   static ArrayBufferToObject( buff ){
     var obj = null;
-    
+
     try{
       var strObj = CodecUtils.arrayBufferToString16( buff );
       obj = JSON.parse( strObj )
     }catch(e){
       console.warn(e);
     }
-    
+
     return obj;
   }
 
-  
+
   /**
   * Get if wether of not the arg is a typed array
   * @param {Object} obj - possibly a typed array, or maybe not
@@ -192,19 +192,19 @@ class CodecUtils {
   */
   static mergeBuffers( arrayOfBuffers ){
     var totalByteSize = 0;
-    
+
     for(var i=0; i<arrayOfBuffers.length; i++){
       totalByteSize += arrayOfBuffers[i].byteLength;
     }
-    
+
     var concatArray = new Uint8Array( totalByteSize );
-    
+
     var offset = 0
     for(var i=0; i<arrayOfBuffers.length; i++){
       concatArray.set( new Uint8Array(arrayOfBuffers[i]), offset);
       offset += arrayOfBuffers[i].byteLength
     }
-    
+
     return concatArray.buffer;
   }
 
@@ -216,7 +216,7 @@ class CodecUtils {
   */
   static getGlobalObject(){
     var constructorHost = null;
-    
+
     try{
       constructorHost = window; // in a web browser
     }catch( e ){
@@ -235,7 +235,7 @@ class CodecUtils {
   * Extract a typed array from an arbitrary buffer, with an arbitrary offset
   * @param {ArrayBuffer} buffer - the buffer from which we extract data
   * @param {Number} byteOffset - offset from the begining of buffer
-  * @param {Function} arrayType - function object, actually the constructor of the output array 
+  * @param {Function} arrayType - function object, actually the constructor of the output array
   * @param {Number} numberOfElements - nb of elem we want to fetch from the buffer
   * @return {TypedArray} output of type given by arg arrayType - this is a copy, not a view
   */
@@ -244,41 +244,88 @@ class CodecUtils {
       console.warn("Input Buffer is null.");
       return null;
     }
-    
+
     if(! (buffer instanceof ArrayBuffer) ){
       console.warn("Buffer must be of type ArrayBuffer");
       return null;
     }
-    
+
     if(numberOfElements <= 0){
       console.warn("The number of elements to fetch must be greater than 0");
       return null;
     }
-    
+
     if(byteOffset < 0){
       console.warn("The byte offset must be possitive or 0");
       return null;
     }
-    
+
     if( byteOffset >= buffer.byteLength ){
       console.warn("The offset cannot be larger than the size of the buffer.");
       return null;
     }
-    
+
     if( arrayType instanceof Function && !("BYTES_PER_ELEMENT" in arrayType)){
       console.warn("ArrayType must be a typed array constructor function.");
       return null;
     }
-    
+
     if( arrayType.BYTES_PER_ELEMENT * numberOfElements + byteOffset > buffer.byteLength ){
       console.warn("The requested number of elements is too large for this buffer");
       return;
     }
-    
+
     var slicedBuff = buffer.slice(byteOffset, byteOffset + numberOfElements*arrayType.BYTES_PER_ELEMENT)
     return new arrayType( slicedBuff )
   }
-  
+
+
+  /**
+  * Get some info about the given TypedArray
+  * @param {TypedArray} typedArray - one of the typed array
+  * @return {Object} in form of {type: String, signed: Boolean, bytesPerElements: Number, byteLength: Number, length: Number}
+  */
+  getTypedArrayInfo( typedArray ){
+    var type = null;
+    var signed = false;
+
+    if( typedArray instanceof Int8Array ){
+      type = "int";
+      signed = false;
+    }else if( typedArray instanceof Uint8Array ){
+      type = "int";
+      signed = true;
+    }else if( typedArray instanceof Uint8ClampedArray ){
+      type = "int";
+      signed = true;
+    }else if( typedArray instanceof Int16Array ){
+      type = "int";
+      signed = false;
+    }else if( typedArray instanceof Uint16Array ){
+      type = "int";
+      signed = true;
+    }else if( typedArray instanceof Int32Array ){
+      type = "int";
+      signed = false;
+    }else if( typedArray instanceof Uint32Array ){
+      type = "int";
+      signed = true;
+    }else if( typedArray instanceof Float32Array ){
+      type = "float";
+      signed = false;
+    }else if( typedArray instanceof Float64Array ){
+      type = "float";
+      signed = false;
+    }
+
+    return {
+      type: type,
+      signed: signed,
+      bytesPerElements: typedArray.BYTES_PER_ELEMENT,
+      byteLength: typedArray.byteLength,
+      length: typedArray.length
+    }
+  }
 
 } /* END of class CodecUtils */
 

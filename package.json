@@ -10,8 +10,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
-    "build-min": "npm run build && printf \"// Build date: $(date '+%Y-%m%-dT%H:%M:%S')\n\n\" > dist/codecutils.min.js && cat header.txt >> dist/codecutils.min.js && google-closure-compiler-js dist/codecutils.js >> dist/codecutils.min.js",
-    "doc": "documentation src/CodecUtils.js -o ./doc/ -f html"
+    "min": "npm run build && printf \"// Build date: $(date '+%Y-%m%-dT%H:%M:%S')\n\n\" > dist/codecutils.min.js && cat header.txt >> dist/codecutils.min.js && google-closure-compiler-js dist/codecutils.js >> dist/codecutils.min.js",
+    "doc": "documentation src/CodecUtils.js -o ./doc/ -f html",
+    "all": "npm run build && npm run min && npm run doc"
   },
   "author": "Jonathan Lurie",
   "license": "MIT",
