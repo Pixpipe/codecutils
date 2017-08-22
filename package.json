@@ -23,5 +23,7 @@
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^2.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "traverse": "^0.6.6"
+  }
 }

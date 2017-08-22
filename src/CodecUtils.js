@@ -1,3 +1,5 @@
+import traverse from "traverse";
+
 /**
 * The CodecUtils class gather some static methods that can be useful while
 * encodeing/decoding data.
@@ -325,6 +327,81 @@ class CodecUtils {
       byteLength: typedArray.byteLength,
       length: typedArray.length
     }
+  }
+  
+  
+  /**
+  * Counts the number of typed array obj has as attributes
+  * @param {Object} obj - an Object
+  * @return {Number} the number of typed array
+  */
+  static howManyTypedArrayAttributes( obj ){
+    var typArrCounter = 0;
+    traverse(obj).forEach(function (x) {
+      typArrCounter += CodecUtils.isTypedArray(x);
+    });
+    return typArrCounter;
+  }
+
+
+  /**
+  * Check if the given object contains any circular reference.
+  * (Circular ref are non serilizable easily, we want to spot them)
+  * @param {Object} obj - An object to check
+  * @return {Boolean} true if obj contains circular refm false if not
+  */
+  static hasCircularReference( obj ){
+    var hasCircular = false;
+    traverse(obj).forEach(function (x) {
+      if (this.circular){
+        hasCircular = true;
+      }
+    });
+    return hasCircular;
+  }
+  
+  
+  /**
+  * Remove circular dependencies from an object and return a circularRef-free version
+  * of the object (does not change the original obj), of null if no circular ref was found
+  * @param {Object} obj - An object to check
+  * @return {Object} a circular-ref free object copy if any was found, or null if no circ was found
+  */
+  static removeCircularReference( obj ){
+    var hasCircular = false;
+    var noCircRefObj = traverse(obj).map(function (x) {
+      if (this.circular){
+        this.remove();
+        hasCircular = true;
+      }
+    });
+    return hasCircular ? noCircRefObj : null;
+  }
+  
+  
+  /**
+  * Clone the object and replace the typed array attributes by regular Arrays.
+  * @param {Object} obj - an object to alter
+  * @return {Object} the clone if ant typed array were changed, or null if was obj didnt contain any typed array.
+  */
+  static replaceTypedArrayAttributesByArrays( obj ){
+    var hasTypedArray = false;
+    
+    var noTypedArrClone = traverse(obj).map(function (x) {
+      if (CodecUtils.isTypedArray(x)){
+        // here, we cannot call .length directly because traverse.map already serialized
+        // typed arrays into regular objects
+        var origSize = Object.keys(x).length;
+        var untypedArray = new Array( origSize );
+        
+        for(var i=0; i<origSize; i++){
+          untypedArray[i] = x[i];
+        }
+        this.update( untypedArray );
+        hasTypedArray = true;
+      }
+    });
+    return hasTypedArray ? noTypedArrClone : null;
   }
 
 } /* END of class CodecUtils */
