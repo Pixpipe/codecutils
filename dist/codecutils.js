@@ -461,9 +461,10 @@ class CodecUtils {
   */
   static objectToArrayBuffer( obj ){
     var buff = null;
+    var objCleanClone = CodecUtils.makeSerializeFriendly(obj);
 
     try{
-      var strObj = JSON.stringify( obj );
+      var strObj = JSON.stringify( objCleanClone );
       buff = CodecUtils.string16ToArrayBuffer(strObj);
     }catch(e){
       console.warn(e);
@@ -704,24 +705,11 @@ class CodecUtils {
   
   
   /**
-  * Replace the typed array attributes in obj by regular Arrays.
-  * NOTICE: this modifies the object! Though, the original typed arrays are
-  * still accessible if you have another pointer on it.
+  * Clone the object and replace the typed array attributes by regular Arrays.
   * @param {Object} obj - an object to alter
-  * 
+  * @return {Object} the clone if ant typed array were changed, or null if was obj didnt contain any typed array.
   */
   static replaceTypedArrayAttributesByArrays( obj ){
-    var wasModified = false;
-    traverse_1(obj).forEach(function (x) {
-      if (CodecUtils.isTypedArray(x)){
-        this.update( Array.from(x) );
-        wasModified = true;
-      }
-    });
-  }
-  
-  
-  static replaceTypedArrayAttributesByArrays2( obj ){
     var hasTypedArray = false;
     
     var noTypedArrClone = traverse_1(obj).map(function (x) {
@@ -740,6 +728,30 @@ class CodecUtils {
     });
     return hasTypedArray ? noTypedArrClone : null;
   }
+  
+  
+  /**
+  * Creates a clone, does not alter the original object.
+  * Remove circular dependencies and replace typed arrays by regular arrays.
+  * Both will make the serialization possible and more reliable.
+  * @param {Object} obj - the object to make serialization friendly
+  * @return {Object} a clean clone, or null if nothing was done
+  */
+  static makeSerializeFriendly( obj ){
+    var newObj = obj;
+    var noCircular = CodecUtils.removeCircularReference(newObj);
+    
+    if( noCircular )
+      newObj = noCircular;
+      
+    var noTypedArr = CodecUtils.replaceTypedArrayAttributesByArrays(newObj);
+    
+    if( noTypedArr )
+      newObj = noTypedArr;
+      
+    return newObj;
+  }
+  
 
 } /* END of class CodecUtils */
 

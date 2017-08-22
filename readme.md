@@ -8,6 +8,7 @@ $ npm install --save Pixpipe/codecutils
 
 ## Use
 The name `codecutils` is the name of the package, while `CodecUtils` is the name of the class that contains static methods.  
+Read the [documetation]() to know about the static methods available.
 
 ### In a browser
 In the browser, you cqn use the version bundled in the `dist` directory.
@@ -23,3 +24,6 @@ var isMachineLittleEndian = codecutils.CodecUtils.isPlatformLittleEndian()
 ```
 
 ### In a Rollup project
+```javascript
+import { CodecUtils } from 'codecutils';
+```

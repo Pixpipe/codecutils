@@ -55,8 +55,13 @@
       }
     }
     
+    
     var nbTypedArr = CodecUtils.howManyTypedArrayAttributes( jack );
     console.log( nbTypedArr );
+    
+    
+    console.log("original Jack2");
+    console.log(jack2);
     
     var hasCircRef = CodecUtils.hasCircularReference( jack2 )
     console.log( "has circular ref: " + hasCircRef );
@@ -68,8 +73,16 @@
     var circRefFreeJack2 = CodecUtils.removeCircularReference( jack2 )
     console.log(circRefFreeJack2);
     
-    var noTypedArrayJack2 = CodecUtils.replaceTypedArrayAttributesByArrays2( jack2 );
+    var noTypedArrayJack2 = CodecUtils.replaceTypedArrayAttributesByArrays( jack2 );
     console.log( noTypedArrayJack2 );
+    
+    //*************** TEST 3 *******************************************
+    console.log("TEST 3");
+    
+    // trying to serialize an object that contains typedArrays and circular dependencies
+    var jackBuff = CodecUtils.objectToArrayBuffer( jack2 );
+    var jackClone = CodecUtils.ArrayBufferToObject( jackBuff );
+    console.log( jackClone );
     
   </script>
 
