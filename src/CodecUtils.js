@@ -21,29 +21,79 @@ class CodecUtils {
 
   /**
   * convert an ArrayBuffer into a unicode string (2 bytes for each char)
+  * Note: this method was kindly borrowed from Google Closure Compiler:
+  * https://github.com/google/closure-library/blob/master/closure/goog/crypt/crypt.js
   * @param {ArrayBuffer} buf - input ArrayBuffer
   * @return {String} a string compatible with Unicode characters
   */
   static arrayBufferToString16( buf ) {
-    return String.fromCharCode.apply(null, new Uint16Array(buf));
-  }
+    var buffUint8 = new Uint8Array(buff)
+    // TODO(user): Use native implementations if/when available
+    var out = [], pos = 0, c = 0;
+    while (pos < buffUint8.length) {
+      var c1 = buffUint8[pos++];
+      if (c1 < 128) {
+        out[c++] = String.fromCharCode(c1);
+      } else if (c1 > 191 && c1 < 224) {
+        var c2 = buffUint8[pos++];
+        out[c++] = String.fromCharCode((c1 & 31) << 6 | c2 & 63);
+      } else if (c1 > 239 && c1 < 365) {
+        // Surrogate Pair
+        var c2 = buffUint8[pos++];
+        var c3 = buffUint8[pos++];
+        var c4 = buffUint8[pos++];
+        var u = ((c1 & 7) << 18 | (c2 & 63) << 12 | (c3 & 63) << 6 | c4 & 63) -
+            0x10000;
+        out[c++] = String.fromCharCode(0xD800 + (u >> 10));
+        out[c++] = String.fromCharCode(0xDC00 + (u & 1023));
+      } else {
+        var c2 = buffUint8[pos++];
+        var c3 = buffUint8[pos++];
+        out[c++] =
+            String.fromCharCode((c1 & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+      }
+    }
+    return out.join('');
+  };
 
 
   /**
   * convert a unicode string into an ArrayBuffer
   * Note that the str is a regular string but it will be encoded with
-  * 2 bytes per char instead of 1 ( ASCII uses 1 byte/char )
+  * 2 bytes per char instead of 1 ( ASCII uses 1 byte/char ).
+  * Note: this method was kindly borrowed from Google Closure Compiler:
+  * https://github.com/google/closure-library/blob/master/closure/goog/crypt/crypt.js
   * @param {String} str - string to encode
   * @return {ArrayBuffer} the output ArrayBuffer
   */
   static string16ToArrayBuffer( str ) {
-    var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
-    var bufView = new Uint16Array(buf);
-    for (var i=0; i < str.length; i++) {
-      bufView[i] = str.charCodeAt(i);
+    var out = [], p = 0;
+    for (var i = 0; i < str.length; i++) {
+      var c = str.charCodeAt(i);
+      if (c < 128) {
+        out[p++] = c;
+      } else if (c < 2048) {
+        out[p++] = (c >> 6) | 192;
+        out[p++] = (c & 63) | 128;
+      } else if (
+          ((c & 0xFC00) == 0xD800) && (i + 1) < str.length &&
+          ((str.charCodeAt(i + 1) & 0xFC00) == 0xDC00)) {
+        // Surrogate Pair
+        c = 0x10000 + ((c & 0x03FF) << 10) + (str.charCodeAt(++i) & 0x03FF);
+        out[p++] = (c >> 18) | 240;
+        out[p++] = ((c >> 12) & 63) | 128;
+        out[p++] = ((c >> 6) & 63) | 128;
+        out[p++] = (c & 63) | 128;
+      } else {
+        out[p++] = (c >> 12) | 224;
+        out[p++] = ((c >> 6) & 63) | 128;
+        out[p++] = (c & 63) | 128;
+      }
     }
-    return buf;
-  }
+
+    // make a buffer out of the array
+    return new Uint8Array(out).buffer;
+  };
 
 
   /**
@@ -329,8 +379,8 @@ class CodecUtils {
       length: typedArray.length
     }
   }
-  
-  
+
+
   /**
   * Counts the number of typed array obj has as attributes
   * @param {Object} obj - an Object
@@ -360,8 +410,8 @@ class CodecUtils {
     });
     return hasCircular;
   }
-  
-  
+
+
   /**
   * Remove circular dependencies from an object and return a circularRef-free version
   * of the object (does not change the original obj), of null if no circular ref was found
@@ -378,8 +428,8 @@ class CodecUtils {
     });
     return hasCircular ? noCircRefObj : null;
   }
-  
-  
+
+
   /**
   * Clone the object and replace the typed array attributes by regular Arrays.
   * @param {Object} obj - an object to alter
@@ -387,14 +437,14 @@ class CodecUtils {
   */
   static replaceTypedArrayAttributesByArrays( obj ){
     var hasTypedArray = false;
-    
+
     var noTypedArrClone = traverse(obj).map(function (x) {
       if (CodecUtils.isTypedArray(x)){
         // here, we cannot call .length directly because traverse.map already serialized
         // typed arrays into regular objects
         var origSize = Object.keys(x).length;
         var untypedArray = new Array( origSize );
-        
+
         for(var i=0; i<origSize; i++){
           untypedArray[i] = x[i];
         }
@@ -404,8 +454,8 @@ class CodecUtils {
     });
     return hasTypedArray ? noTypedArrClone : null;
   }
-  
-  
+
+
   /**
   * Creates a clone, does not alter the original object.
   * Remove circular dependencies and replace typed arrays by regular arrays.
@@ -416,18 +466,18 @@ class CodecUtils {
   static makeSerializeFriendly( obj ){
     var newObj = obj;
     var noCircular = CodecUtils.removeCircularReference(newObj);
-    
+
     if( noCircular )
       newObj = noCircular;
-      
+
     var noTypedArr = CodecUtils.replaceTypedArrayAttributesByArrays(newObj);
-    
+
     if( noTypedArr )
       newObj = noTypedArr;
-      
+
     return newObj;
   }
-  
+
 
 } /* END of class CodecUtils */
 
