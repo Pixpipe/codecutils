@@ -33,14 +33,14 @@
                   .ArrayBufferToObject
                 </a>
                 <a
-                  href='#CodecUtils.arrayBufferToString16'
-                  class='regular block'>
-                  .arrayBufferToString16
-                </a>
-                <a
                   href='#CodecUtils.arrayBufferToString8'
                   class='regular block'>
                   .arrayBufferToString8
+                </a>
+                <a
+                  href='#CodecUtils.arrayBufferToUnicode'
+                  class='regular block'>
+                  .arrayBufferToUnicode
                 </a>
                 <a
                   href='#CodecUtils.extractTypedArray'
@@ -113,14 +113,14 @@
                   .setString8InBuffer
                 </a>
                 <a
-                  href='#CodecUtils.string16ToArrayBuffer'
-                  class='regular block'>
-                  .string16ToArrayBuffer
-                </a>
-                <a
                   href='#CodecUtils.string8ToArrayBuffer'
                   class='regular block'>
                   .string8ToArrayBuffer
+                </a>
+                <a
+                  href='#CodecUtils.unicodeToArrayBuffer'
+                  class='regular block'>
+                  .unicodeToArrayBuffer
                 </a>
           </div>
         </div>
@@ -175,43 +175,6 @@ Of course, this buffer has to come from a serialized object.</p>
             </section>
           </div>
         </div>
-        <div class='collapsible' id='CodecUtils.arrayBufferToString16'>
-          <a href='#CodecUtils.arrayBufferToString16'>
-            <code>
-              .arrayBufferToString16<span class='gray'>(buf)</span>
-            </code>
-            <div class='force-inline'>
-              <p>convert an ArrayBuffer into a unicode string (2 bytes for each char)</p>
-
-            </div>
-          </a>
-          <div class='collapser border px2 m2'>
-            <section class='py2 clearfix'>
-              <h2 id='CodecUtils.arrayBufferToString16' class='mt0'>
-                arrayBufferToString16<span class='gray'>(buf)</span>
-              </h2>
-              <p>convert an ArrayBuffer into a unicode string (2 bytes for each char)</p>
-            
-                <h4>Parameters</h4>
-                <ul class='suppress-p-margin'>
-                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code> <strong>buf</strong>
-                      :
-                      <div class='force-inline'>
-                        <p>input ArrayBuffer</p>
-            
-                      </div>
-                    </li>
-                </ul>
-                  <h4>Returns</h4>
-                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code></code>
-                  :
-                  <div class='force-inline'>
-                    <p>a string compatible with Unicode characters</p>
-            
-                  </div>
-            </section>
-          </div>
-        </div>
         <div class='collapsible' id='CodecUtils.arrayBufferToString8'>
           <a href='#CodecUtils.arrayBufferToString8'>
             <code>
@@ -244,6 +207,53 @@ Of course, this buffer has to come from a serialized object.</p>
                   :
                   <div class='force-inline'>
                     <p>the output string</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.arrayBufferToUnicode'>
+          <a href='#CodecUtils.arrayBufferToUnicode'>
+            <code>
+              .arrayBufferToUnicode<span class='gray'>(buf, buff)</span>
+            </code>
+            <div class='force-inline'>
+              <p>convert an ArrayBuffer into a unicode string (2 bytes for each char)
+Note: this method was kindly borrowed from Google Closure Compiler:
+<a href="https://github.com/google/closure-library/blob/master/closure/goog/crypt/crypt.js">https://github.com/google/closure-library/blob/master/closure/goog/crypt/crypt.js</a></p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.arrayBufferToUnicode' class='mt0'>
+                arrayBufferToUnicode<span class='gray'>(buf, buff)</span>
+              </h2>
+              <p>convert an ArrayBuffer into a unicode string (2 bytes for each char)
+            Note: this method was kindly borrowed from Google Closure Compiler:
+            <a href="https://github.com/google/closure-library/blob/master/closure/goog/crypt/crypt.js">https://github.com/google/closure-library/blob/master/closure/goog/crypt/crypt.js</a></p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code> <strong>buf</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>input ArrayBuffer</p>
+            
+                      </div>
+                    </li>
+                    <li> <strong>buff</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>a string compatible with Unicode characters</p>
             
                   </div>
             </section>
@@ -801,47 +811,6 @@ of the object (does not change the original obj), of null if no circular ref was
             </section>
           </div>
         </div>
-        <div class='collapsible' id='CodecUtils.string16ToArrayBuffer'>
-          <a href='#CodecUtils.string16ToArrayBuffer'>
-            <code>
-              .string16ToArrayBuffer<span class='gray'>(str)</span>
-            </code>
-            <div class='force-inline'>
-              <p>convert a unicode string into an ArrayBuffer
-Note that the str is a regular string but it will be encoded with
-2 bytes per char instead of 1 ( ASCII uses 1 byte/char )</p>
-
-            </div>
-          </a>
-          <div class='collapser border px2 m2'>
-            <section class='py2 clearfix'>
-              <h2 id='CodecUtils.string16ToArrayBuffer' class='mt0'>
-                string16ToArrayBuffer<span class='gray'>(str)</span>
-              </h2>
-              <p>convert a unicode string into an ArrayBuffer
-            Note that the str is a regular string but it will be encoded with
-            2 bytes per char instead of 1 ( ASCII uses 1 byte/char )</p>
-            
-                <h4>Parameters</h4>
-                <ul class='suppress-p-margin'>
-                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>str</strong>
-                      :
-                      <div class='force-inline'>
-                        <p>string to encode</p>
-            
-                      </div>
-                    </li>
-                </ul>
-                  <h4>Returns</h4>
-                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code></code>
-                  :
-                  <div class='force-inline'>
-                    <p>the output ArrayBuffer</p>
-            
-                  </div>
-            </section>
-          </div>
-        </div>
         <div class='collapsible' id='CodecUtils.string8ToArrayBuffer'>
           <a href='#CodecUtils.string8ToArrayBuffer'>
             <code>
@@ -876,6 +845,51 @@ Note that the str is a regular string, it will be encoded with 1 byte per char</
                   
                   <div class='force-inline'>
                     
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CodecUtils.unicodeToArrayBuffer'>
+          <a href='#CodecUtils.unicodeToArrayBuffer'>
+            <code>
+              .unicodeToArrayBuffer<span class='gray'>(str)</span>
+            </code>
+            <div class='force-inline'>
+              <p>convert a unicode string into an ArrayBuffer
+Note that the str is a regular string but it will be encoded with
+2 bytes per char instead of 1 ( ASCII uses 1 byte/char ).
+Note: this method was kindly borrowed from Google Closure Compiler:
+<a href="https://github.com/google/closure-library/blob/master/closure/goog/crypt/crypt.js">https://github.com/google/closure-library/blob/master/closure/goog/crypt/crypt.js</a></p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='CodecUtils.unicodeToArrayBuffer' class='mt0'>
+                unicodeToArrayBuffer<span class='gray'>(str)</span>
+              </h2>
+              <p>convert a unicode string into an ArrayBuffer
+            Note that the str is a regular string but it will be encoded with
+            2 bytes per char instead of 1 ( ASCII uses 1 byte/char ).
+            Note: this method was kindly borrowed from Google Closure Compiler:
+            <a href="https://github.com/google/closure-library/blob/master/closure/goog/crypt/crypt.js">https://github.com/google/closure-library/blob/master/closure/goog/crypt/crypt.js</a></p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>str</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>string to encode</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the output ArrayBuffer</p>
+            
                   </div>
             </section>
           </div>
