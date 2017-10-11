@@ -2,7 +2,13 @@
   "name": "codecutils",
   "version": "0.1.0",
   "description": "Some handy tools for file codec",
-  "main": "src/CodecUtils.js",
+  
+  "entry": "src/main.js",
+  "main": "dist/codecutils.cjs.es5.js",
+  "commonjs": "dist/codecutils.cjs.js",
+  "module": "dist/codecutils.module.js",
+  "browser": "dist/codecutils.umd.js",
+  
   "repository": "jonathanlurie/codecutils",
   "moduleName": "codecutils",
   "moduleFormat": "umd",
@@ -19,9 +25,16 @@
   "devDependencies": {
     "documentation": "^3.0.4",
     "google-closure-compiler-js": "^20170218.0.0",
-    "rollup": "^0.36.4",
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "google-closure-compiler-js": "^20170218.0.0",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-node-resolve": "^2.0.0"
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.1.0"
   },
   "dependencies": {
     "traverse": "^0.6.6"

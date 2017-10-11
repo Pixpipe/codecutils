@@ -5,7 +5,7 @@
 </head>
 <body>
   <!-- importing the automatically build module -->
-  <script src="../dist/codecutils.js"></script>
+  <script src="../dist/codecutils.umd.js"></script>
 
   <p>Open Javascript console.</p>
 
@@ -18,8 +18,8 @@
     console.log("Is plaftform little endian: " + CodecUtils.isPlatformLittleEndian() );
 
     var stringBefore = "I can has 🍔";
-    var strBuff = CodecUtils.string16ToArrayBuffer( stringBefore );
-    var stringAfter = CodecUtils.arrayBufferToString16( strBuff )
+    var strBuff = CodecUtils.unicodeToArrayBuffer( stringBefore );
+    var stringAfter = CodecUtils.arrayBufferToUnicode( strBuff )
 
     if( stringBefore ===  stringAfter){
       console.log("unicode string to arraybuffer and back works");
