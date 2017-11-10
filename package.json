@@ -4,7 +4,7 @@
   "description": "Some handy tools for file codec",
   
   "entry": "src/main.js",
-  "main": "dist/codecutils.cjs.es5.js",
+  "main": "dist/codecutils.cjs.js",
   "commonjs": "dist/codecutils.cjs.js",
   "module": "dist/codecutils.module.js",
   "browser": "dist/codecutils.umd.js",
@@ -14,6 +14,7 @@
   "moduleFormat": "umd",
   "moduleBuildDir": "dist",
   "scripts": {
+    "install": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
     "min": "npm run build && printf \"// Build date: $(date '+%Y-%m%-dT%H:%M:%S')\n\n\" > dist/codecutils.min.js && cat header.txt >> dist/codecutils.min.js && google-closure-compiler-js dist/codecutils.js >> dist/codecutils.min.js",
