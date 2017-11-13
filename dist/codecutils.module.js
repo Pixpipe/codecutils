@@ -503,6 +503,10 @@ var CodecUtils = function () {
       while (pos < buffUint8.length) {
         var c1 = buffUint8[pos++];
         if (c1 < 128) {
+          if (c1 < 32 && c1 != 10 && c1 != 13 && c1 != 9 || c1 == 127) {
+            console.warn("Invalid string: non-printable characters");
+            return null;
+          }
           out[c++] = String.fromCharCode(c1);
         } else if (c1 > 191 && c1 < 224) {
           var c2 = buffUint8[pos++];
@@ -518,7 +522,12 @@ var CodecUtils = function () {
         } else {
           var c2 = buffUint8[pos++];
           var c3 = buffUint8[pos++];
-          out[c++] = String.fromCharCode((c1 & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+          var code = (c1 & 15) << 12 | (c2 & 63) << 6 | c3 & 63;
+          if (code === 0xFFFD) {
+            console.warn("Invalid string: a REPLACEMENT CHARACTER was spotted");
+            return null;
+          }
+          out[c++] = String.fromCharCode(code);
         }
       }
       return out.join('');
