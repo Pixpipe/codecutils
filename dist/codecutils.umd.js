@@ -987,6 +987,32 @@ var CodecUtils = function () {
 
       return newObj;
     }
+
+    /**
+    * Check if a string is valid or not. A string is considered as invalid if it has
+    * unicode "REPLACEMENT CHARACTER" or non-printable ASCII characters.
+    * @param {String} str - string to test
+    * @param {Boolean} forceAll - test the whole string instead of a sample of 1000 charaters
+    * @return {Boolean} true is the string is valid, false if invalid.
+    */
+
+  }, {
+    key: "isValidString",
+    value: function isValidString(str) {
+      var forceAll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      var strLen = str.length;
+      var nbSamples = forceAll ? strLen : Math.min(1000, strLen); //  a sample of 1000 should be enough
+      var flagChar = 0xFFFD;
+      var redFlags = 0;
+      for (var i = 0; i < nbSamples; i++) {
+        var code = str.charCodeAt(Math.floor(Math.random() * nbSamples));
+        if (code === flagChar || code < 32 && code != 10 && code != 13 && code != 9 || code == 127) {
+          redFlags++;
+        }
+      }
+      return !(redFlags > 0);
+    }
   }]);
   return CodecUtils;
 }(); /* END of class CodecUtils */
