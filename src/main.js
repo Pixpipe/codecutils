@@ -33,6 +33,10 @@ class CodecUtils {
     while (pos < buffUint8.length) {
       var c1 = buffUint8[pos++];
       if (c1 < 128) {
+        if((c1 < 32 && c1 != 10 && c1 != 13 && c1 != 9) || c1 == 127){
+          console.warn("Invalid string: non-printable characters");
+          return null;
+        }
         out[c++] = String.fromCharCode(c1);
       } else if (c1 > 191 && c1 < 224) {
         var c2 = buffUint8[pos++];
@@ -42,15 +46,18 @@ class CodecUtils {
         var c2 = buffUint8[pos++];
         var c3 = buffUint8[pos++];
         var c4 = buffUint8[pos++];
-        var u = ((c1 & 7) << 18 | (c2 & 63) << 12 | (c3 & 63) << 6 | c4 & 63) -
-            0x10000;
+        var u = ((c1 & 7) << 18 | (c2 & 63) << 12 | (c3 & 63) << 6 | c4 & 63) - 0x10000;
         out[c++] = String.fromCharCode(0xD800 + (u >> 10));
         out[c++] = String.fromCharCode(0xDC00 + (u & 1023));
       } else {
         var c2 = buffUint8[pos++];
         var c3 = buffUint8[pos++];
-        out[c++] =
-            String.fromCharCode((c1 & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+        var code = (c1 & 15) << 12 | (c2 & 63) << 6 | c3 & 63;
+        if(code === 0xFFFD){
+          console.warn("Invalid string: a REPLACEMENT CHARACTER was spotted");
+          return null;
+        }
+        out[c++] = String.fromCharCode(code);
       }
     }
     return out.join('');
