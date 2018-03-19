@@ -3,12 +3,12 @@ This package is a toolkit composed of static functions to help reading and writi
 
 ## Install
 ```bash
-$ npm install --save Pixpipe/codecutils
+$ npm install --save codecutils
 ```
 
 ## Use
 The name `codecutils` is the name of the package, while `CodecUtils` is the name of the class that contains static methods.  
-Read the [documetation]() to know about the static methods available.
+Read the [documetation](http://www.pixpipe.io/codecutils/doc/) to know about the static methods available.
 
 ### In a browser
 In the browser, you cqn use the version bundled in the `dist` directory.
