@@ -1,14 +1,11 @@
 {
   "name": "codecutils",
   "version": "0.1.0",
-  "description": "Some handy tools for file codec",
-  
+  "description": "Some handy tools for decoding binary files in pure JS",
   "entry": "src/main.js",
-  "main": "dist/codecutils.cjs.js",
-  "commonjs": "dist/codecutils.cjs.js",
-  "module": "dist/codecutils.module.js",
-  "browser": "dist/codecutils.umd.js",
-  
+  "main": "dist/codecutils.umd.js",
+  "cjs": "dist/codecutils.cjs.js",
+  "umd": "dist/codecutils.umd.js",
   "repository": "jonathanlurie/codecutils",
   "moduleName": "codecutils",
   "moduleFormat": "umd",
@@ -28,7 +25,6 @@
     "babel-core": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-es2015-rollup": "^3.0.0",
-    "google-closure-compiler-js": "^20170218.0.0",
     "rollup": "^0.50.0",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.0.2",

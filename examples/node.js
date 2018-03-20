@@ -1,4 +1,4 @@
-const codecutils = require("../dist/codecutils.cjs.js");
+const codecutils = require("..");
 
 //************ TEST 1 ***********************************************
 console.log("TEST 1");
