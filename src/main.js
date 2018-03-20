@@ -29,7 +29,7 @@ class CodecUtils {
   static arrayBufferToUnicode( buff ) {
     var buffUint8 = new Uint8Array(buff)
     var out = [], pos = 0, c = 0;
-    
+
     while (pos < buffUint8.length) {
       var c1 = buffUint8[pos++];
       if (c1 < 128) {
@@ -281,7 +281,7 @@ class CodecUtils {
       constructorHost = window; // in a web browser
     }catch( e ){
       try{
-        constructorHost = GLOBAL; // in node
+        constructorHost = global; // in node
       }catch( e ){
         console.warn( "You are not in a Javascript environment?? Weird." );
         return null;
@@ -498,7 +498,7 @@ class CodecUtils {
     var nbSamples = forceAll ? strLen : Math.min( 1000, strLen ); //  a sample of 1000 should be enough
     var flagChar = 0xFFFD;
     var redFlags = 0;
-    for(var i=0; i<nbSamples; i++){ 
+    for(var i=0; i<nbSamples; i++){
       var code = str.charCodeAt( Math.floor(Math.random() * nbSamples) );
       if( code === flagChar || (code < 32 && code != 10 && code != 13 && code != 9) || code == 127){
         redFlags ++
