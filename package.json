@@ -1,6 +1,6 @@
 {
   "name": "codecutils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Some handy tools for decoding binary files in pure JS",
   "entry": "src/main.js",
   "main": "dist/codecutils.umd.js",
